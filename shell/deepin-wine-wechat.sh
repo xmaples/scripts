@@ -1,5 +1,9 @@
-mkdir -p /tmp/deepin-wine
-cd /tmp/deepin-wine
+#!/usr/bin/env bash
+
+pkg_dir=/tmp/deepin-wine-install
+mkdir -p "$pkg_dir"
+cd "$pkg_dir" || exit
+
 echo '下载deepin-wine安装包'
 wget https://packages.deepin.com/deepin/pool/non-free/d/deepin-wine/deepin-wine_2.18-22~rc0_all.deb
 wget https://packages.deepin.com/deepin/pool/non-free/d/deepin-wine/deepin-wine32_2.18-22~rc0_i386.deb
@@ -20,15 +24,20 @@ sudo dpkg --add-architecture i386
 echo '刷新apt缓存信息'
 sudo apt-get update
 
-echo '开始安装'
-sudo dpkg -i *.deb
+echo '开始安装deepin-wine'
+sudo dpkg -i ./*.deb
 
 echo '安装依赖'
 sudo apt install -fy
-echo '下载微信安装包'
+
+mkdir -p wechat-install
+cd wechat-install
+echo '开始下载微信和企业微信安装包'
 wget https://packages.deepin.com/deepin/pool/non-free/d/deepin.com.wechat/deepin.com.wechat_2.6.8.65deepin0_i386.deb
 wget https://packages.deepin.com/deepin/pool/non-free/d/deepin.com.weixin.work/deepin.com.weixin.work_2.8.10.2010deepin0_i386.deb
-echo '安装'
+echo '开始安装微信和企业微信'
 sudo dpkg -i deepin.com.wechat_2.6.8.65deepin0_i386.deb
 sudo dpkg -i deepin.com.weixin.work_2.8.10.2010deepin0_i386.deb
+
+echo '您将在桌面上看到微信和企业微信的程序启动图标'
 echo '安装完成'
